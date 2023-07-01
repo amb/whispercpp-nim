@@ -6,8 +6,12 @@ const
   WHISPER_HOP_LENGTH* = 160
   WHISPER_CHUNK_SIZE* = 30
 
-{.compile("ggml.c", "/O2 /arch:AVX2").}
-{.compile("whisper.cpp", "/O2 /arch:AVX2").}
+when defined(VCC):
+  {.compile("ggml.c", "/O2 /arch:AVX2").}
+  {.compile("whisper.cpp", "/O2 /arch:AVX2").}
+else:
+  {.compile: "ggml.c".}
+  {.compile: "whisper.cpp".}
 
 ##
 ##  C interface
