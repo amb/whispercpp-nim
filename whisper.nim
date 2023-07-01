@@ -50,9 +50,9 @@ else:
 ##
 
 type
-  whisper_context* = cint
-  whisper_state* = cint
-  whisper_token* = cint
+  whisper_context* = object
+  whisper_state* = object
+  whisper_token* = object
   whisper_token_data* {.bycopy.} = object
     id*: whisper_token
     ##  token id
