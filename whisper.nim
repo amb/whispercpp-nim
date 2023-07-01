@@ -6,7 +6,8 @@ const
   WHISPER_HOP_LENGTH* = 160
   WHISPER_CHUNK_SIZE* = 30
 
-{.link: "whisper.lib".}
+{.compile("ggml.c", "/O2 /arch:AVX2").}
+{.compile("whisper.cpp", "/O2 /arch:AVX2").}
 
 ##
 ##  C interface

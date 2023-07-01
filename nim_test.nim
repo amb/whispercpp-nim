@@ -4,12 +4,11 @@ import whisper
 import wavfile
 
 var pcmf32 = loadWav("samples/jfk.wav").toFloat()
+var ctx*: ptr whisper_context = whisper_init_from_file("models/ggml-base.bin")
 
-var ctx*: ptr whisper_context = whisper_init_from_file("models/ggml-base.en.bin")
+echo("Init done.")
 
 var wparams = whisper_full_default_params(WHISPER_SAMPLING_GREEDY)
-# echo(wparams)
-echo()
 wparams.print_progress = false
 if whisper_full(ctx, wparams, cast[ptr cfloat](pcmf32), pcmf32.len.cint) != 0:
     echo("Failed to process audio")
