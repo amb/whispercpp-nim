@@ -313,7 +313,8 @@ proc whisper_lang_str*(id: cint): cstring {.cdecl, importc.}
 proc whisper_lang_auto_detect*(ctx: ptr whisper_context; offset_ms: cint;
                               n_threads: cint; lang_probs: ptr cfloat): cint {.cdecl, importc.}
 proc whisper_lang_auto_detect_with_state*(ctx: ptr whisper_context;
-    state: ptr whisper_state; offset_ms: cint; n_threads: cint; lang_probs: ptr cfloat): cint {.cdecl, importc.}
+    state: ptr whisper_state; offset_ms: cint; n_threads: cint;
+        lang_probs: ptr cfloat): cint {.cdecl, importc.}
 proc whisper_n_len*(ctx: ptr whisper_context): cint {.cdecl, importc.}
 
 ##  mel length
@@ -403,15 +404,15 @@ proc whisper_full_lang_id_from_state*(state: ptr whisper_state): cint {.cdecl, i
 ##  Get the start and end time of the specified segment
 proc whisper_full_get_segment_t0*(ctx: ptr whisper_context; i_segment: cint): int64 {.cdecl, importc.}
 proc whisper_full_get_segment_t0_from_state*(state: ptr whisper_state;
-    i_segment: cint): int64 {.importc,header: "whisper.h".}
+    i_segment: cint): int64 {.importc.}
 proc whisper_full_get_segment_t1*(ctx: ptr whisper_context; i_segment: cint): int64 {.cdecl, importc.}
 proc whisper_full_get_segment_t1_from_state*(state: ptr whisper_state;
-    i_segment: cint): int64 {.importc,header: "whisper.h".}
+    i_segment: cint): int64 {.importc.}
 
 ##  Get the text of the specified segment
 proc whisper_full_get_segment_text*(ctx: ptr whisper_context; i_segment: cint): cstring {.cdecl, importc.}
 proc whisper_full_get_segment_text_from_state*(state: ptr whisper_state;
-    i_segment: cint): cstring {.importc,header: "whisper.h".}
+    i_segment: cint): cstring {.importc.}
 
 ##  Get number of tokens in the specified segment
 proc whisper_full_n_tokens*(ctx: ptr whisper_context; i_segment: cint): cint {.cdecl, importc.}
