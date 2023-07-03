@@ -10,7 +10,7 @@ echo("Init done.")
 
 var wparams = whisper_full_default_params(WHISPER_SAMPLING_GREEDY)
 wparams.print_progress = false
-if whisper_full(ctx, wparams, cast[ptr cfloat](pcmf32), pcmf32.len.cint) != 0:
+if whisper_full(ctx, wparams, cast[ptr cfloat](pcmf32[0].addr), pcmf32.len.cint) != 0:
     echo("Failed to process audio")
     quit(QuitFailure)
 

@@ -9,5 +9,5 @@ Based on the [whisper.cpp](https://github.com/ggerganov/whisper.cpp) project.
 
 ### TODO
 
- * --mm:orc support
  * Add license/attribution
+ * Testing

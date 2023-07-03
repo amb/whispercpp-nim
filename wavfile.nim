@@ -38,13 +38,19 @@ proc readDataChunk(f: FileStream): wavChunkObj =
 proc toFloat*(wav: WavFile): seq[float32] =
     # TODO: convert every wave file to mono, 16 kHz (for Whisper)
     assert wav.bits == 16
-    assert wav.channels == 1
+    # assert wav.channels == 1
     var rseq: seq[float32] = @[]
     var arr = cast[ptr UncheckedArray[int16]](wav.data[0].unsafeAddr)
-    # TODO: inprecise
-    let mpl = 1.0/32000.0
-    for i in 0..<wav.size div 2:
-        rseq.add(float32(arr[i])*mpl)
+
+    let mpl = 1.0/32768.0f
+    if wav.channels == 1:
+        for i in 0..<wav.size div 2:
+            rseq.add(float32(arr[i])*mpl)
+    elif wav.channels == 2:
+        for i in 0..<wav.size div 4:
+            rseq.add((float32(arr[i*2]) + float32(arr[i*2+1])) * mpl * 0.5)
+    else:
+        doAssert false, "Unsupported number of channels"
     return rseq
 
 
