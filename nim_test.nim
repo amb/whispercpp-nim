@@ -1,12 +1,19 @@
-# nim --cc:vcc c -r -d:release nim_test.nim
+# nim --cc:vcc c -r -d:danger -d:strip --mm:arc nim_test.nim models/ggml-base.bin samples/jfk.wav
 
 import whisper
 import wavfile
+import std/os
 
-var pcmf32 = loadWav("samples/jfk.wav").toFloat()
-var ctx*: ptr whisper_context = whisper_init_from_file("models/ggml-base.bin")
+# Read command-line parameters
+var args = commandLineParams()
+echo args
+if args.len != 2:
+    echo("Usage: nim_test <model.bin> <input.wav>")
+    quit(QuitFailure)
 
-echo("Init done.")
+# Load input file
+var pcmf32 = loadWav(args[1]).toFloat(16000)
+var ctx*: ptr whisper_context = whisper_init_from_file(args[0])
 
 var wparams = whisper_full_default_params(WHISPER_SAMPLING_GREEDY)
 wparams.print_progress = false

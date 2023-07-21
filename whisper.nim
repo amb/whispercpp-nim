@@ -10,6 +10,9 @@ when defined(VCC):
   {.compile("ggml.c", "/O2 /arch:AVX2").}
   {.compile("whisper.cpp", "/O2 /arch:AVX2").}
 else:
+  ## TODO: program performance for any other platform outside MSVC will be extremely slow
+  ##       without defining optimization flags here
+  ##       If Nim can put the optimization/debug flags here somehow dynamically , it would be great
   {.compile: "ggml.c".}
   {.compile: "whisper.cpp".}
 
